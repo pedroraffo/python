@@ -96,3 +96,17 @@ def cantidad_de_pizzas (comensales:int, porciones:int) -> int:
     else: 
       print (round (((comensales * porciones)/8), ))
 cantidad_de_pizzas (8, 3)
+
+#eje 3.1 
+def alguno_es_0 (x: int, y: int) -> bool:
+  res : bool = x == 0 or y == 0 
+  print (res) 
+
+alguno_es_0 (1, 2) 
+
+# eje 3.2 
+def ambos_son_0 (x: int, y: int) -> bool: 
+  res : bool = x == 0 and y == 0 
+  print (res) 
+
+ambos_son_0 (1, 0) 
