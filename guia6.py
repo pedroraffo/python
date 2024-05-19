@@ -109,4 +109,40 @@ def ambos_son_0 (x: int, y: int) -> bool:
   res : bool = x == 0 and y == 0 
   print (res) 
 
-ambos_son_0 (1, 0) 
+ambos_son_0 (1, 0)
+
+# 3.3 
+def es_nombre_largo (nombre : str) -> bool:
+  res : bool = (len(nombre) >= 3) and (len(nombre) <= 8)
+  print (res) 
+
+es_nombre_largo ("pedro") 
+
+#3.4 
+def bisiesto_es (ano : int) -> bool:
+  res : bool = (ano % 400 == 0) or ((ano % 4 == 0) and (ano % 100 != 0)) 
+  print (res) 
+
+bisiesto_es (2024)
+
+#4 
+def peso_pino (altura : float) -> float:
+    if (altura <= 3): 
+      return ((altura * 100) * 3) 
+    else: 
+      return (300 * 3 + ((altura - 3) * 100) * 2) 
+    
+print (peso_pino (5))  
+
+def util_peso (peso : float) -> bool: 
+  res : bool = (peso >= 400) and (peso <= 1000) 
+  return (res) 
+
+print (util_peso (1001)) 
+
+def sirve_pino (altura : float) -> bool: 
+ res :  bool = util_peso (peso_pino (altura)) 
+ return (res) 
+
+print (sirve_pino (5)) 
+
