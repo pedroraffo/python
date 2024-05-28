@@ -38,16 +38,72 @@ def ordenados (seq : list) -> bool:
    return (res) 
 
 #1.5 
-def palabras7 (l : list [str]) -> bool:
-    res: bool = False
-    for i in range(0,len(l)-1,1):
-        if (len(l[i]) > 7):
-            res = True
-    return res
+#def palabras7 (l : list [str]) -> bool:
+ #   res: bool = False
+  #  for i in range(0,len(l)-1,1):
+   #     if (len(l[i]) > 7):
+    #        res = True
+    #return res
      
-   
-## 
+#1.6 
+def capicua (texto : str) -> bool: 
+   i : int = 0 
+   e : int = len (texto) - 1 
+   res : bool = True 
+   while ((i < len (texto)) and (res == True)):
+      if (texto[i] != texto[e]):
+         res = False 
+      i += 1 
+      e -= 1 
+   return (res) 
 
+#print (capicua ("neuquen")) 
+   
+#1.7 
+
+def tiene_minuscula (c : str) -> bool:
+   for char in c: 
+      if ("a" <= char <= "z"):
+         res = True
+      else: 
+         res = False 
+   return res 
+
+def tiene_mayus (c : str)  -> bool: 
+   for char in c: 
+      if ("A" <= char <= "Z"):
+         res = True
+      else: 
+         res = False
+   return res 
+
+def tiene_numero (c : str) -> bool:
+   for num in c: 
+      if ("0" <= num <= "9"):
+         res = True
+      else: 
+         res = False
+   return res 
+
+def es_verde (c : str) -> bool: 
+   if ((len (c) > 8) and (tiene_minuscula(c) == True) and (tiene_mayus(c) == True) and (tiene_numero(c) == True)):
+      res = True
+   else: 
+      res = False 
+   return res 
+
+def fortaleza_de_contrasena (c : str) -> str: 
+   if (es_verde(c) == True): 
+      res = "VERDE" 
+   else: 
+      if (len (c) < 5):
+         res = "ROJA"
+      else: 
+         res = "AMARILLA" 
+   return res 
+
+#print (fortaleza_de_contrasena ("123Ar2565y"))    
+   
 #1.8
 def cuenta_bancaria (movimientos : list) -> float: 
    res : float = 0 
@@ -89,7 +145,7 @@ def tuvieja (list : int) ->  None :
       if (i % 2 == 0): 
          list[i] = 0 
       
-listaaux : list [int] =  ([1, 2, 3, 4])   
+#listaaux : list [int] =  ([1, 2, 3, 4])   
 #print (listaaux)
 #tuvieja (listaaux) 
 #print  (listaaux)
@@ -106,6 +162,81 @@ def sinvocales (list) -> list:
    
 #print (sinvocales (["h", "o", "l", "a"]))   
 
+#2.4
+
+def reemplazar_vocales (list) -> list: 
+   nueva : list = []
+   for letra in list: 
+      if (esVocal (letra) == True): 
+         nueva.append ('-')
+      else: 
+         nueva.append (letra)
+   return nueva 
+
+#print (reemplazar_vocales (["h", "o", "l", "a"])) 
+
+#2.5 
+
+def da_vuelta (s : list) -> list: 
+   nueva : list = []
+   i : int = 0
+   while (0 <= i < len (s)): 
+      nueva.append (s[len (s) - i - 1]) 
+      i += 1   
+   return nueva 
+
+#print (da_vuelta(["h", "o", "l", "a"])) 
+
+#2.6
+
+def eliminar_repe (s : list) -> list: 
+   nueva : list = []
+   i : int = 0 
+   while (0 <= i < len (s)):  
+      if (pertenece (nueva, s[i]) == False): 
+         nueva.append (s[i]) 
+      i += 1 
+   return nueva 
+
+#print (eliminar_repe (["h","a", "a", "a", "o", "l", "a", "a", "a"]))
+
+
+# 3
+
+def promedio (list) -> int: 
+   i : int = 0 
+   res : int = 0 
+   while (0 <= i < len (list)):
+       res += list [i] 
+       i += 1
+   return (res / len (list)) 
+
+#print (promedio ([8, 6, 5])) 
+
+def menos_de_cuatro (list) -> bool: 
+   i : int = 0 
+   res : bool = False 
+   while (0 <= i < len (list)): 
+      if (list[i] < 4): 
+         res = True 
+      i += 1 
+   return res 
+
+#print (menos_de_cuatro ([5, 4, 3])) 
+
+
+def notas (list) -> int: 
+   res : int = 0
+   if ((menos_de_cuatro (list) == True) or (promedio (list) < 4)):
+      res = 3
+   else: 
+      if (4 <= promedio (list) < 7): 
+         res = 2
+      else: 
+         res = 1 
+   return res 
+
+#print (notas ((7, 7, 4))) 
 
 ### 
 
@@ -119,5 +250,5 @@ def pertenece_each_one2 (seq : list, e : int ) -> list [bool]:
          nueva.append (False) 
    return nueva 
 
-print (pertenece_each_one2 ([[1, 7, 2], [4, 5, 2]], 1))       
+#print (pertenece_each_one2 ([[1, 7, 2], [4, 5, 2]], 1))       
       
