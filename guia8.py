@@ -1,5 +1,6 @@
 import math
 
+
 # 1 
 def contar_lineas (archivo : str) ->  int: 
     file = open (archivo , "r") 
@@ -52,7 +53,7 @@ def apariciones (archivo : str, palabra : str) -> int:
         i += 1 
      return res 
 
-print (apariciones ("ocho.txt", "va"))
+#print (apariciones ("ocho.txt", "va"))
         
 
 # 2 
@@ -72,4 +73,145 @@ def sin_comentarios (archivo : str):
     messi.writelines(res) 
     messi.close() 
 
-sin_comentarios ("come.txt") 
+#sin_comentarios ("come.txt")
+
+#3
+
+def invertir_lineas (archivo : str): 
+    file = open (archivo, "r")
+    texto = file.readlines()
+    revers = open ("reverso.txt", "w")
+    i = len (texto) - 1 
+    res = []
+    while i >= 0: 
+        res.append(texto[i] + '\n')
+        i -= 1 
+
+    revers.writelines(res) 
+    revers.close() 
+
+#invertir_lineas ("ocho.txt")
+
+#4
+
+def agregar_frase_al_final (archivo : str, frase : str):
+    file = open(archivo, "r+")
+    texto = file.read()
+
+    file.write('\n' + frase)
+    file.close() 
+
+#agregar_frase_al_final("ocho.txt", "esta la agregamos")  
+
+#5 
+def agregar_al_principio (archivo : str, frase : str): 
+    file = open(archivo, "r") 
+    texto = file.read()
+    file.close() 
+
+    nuevo = open (archivo, "w") 
+    nuevo.write(frase + '\n' + texto) 
+    nuevo.close() 
+
+#agregar_al_principio ("ocho.txt", "estoy aca arriba")
+
+#6
+
+def listarpalabras_de_archivo(archivo:str) -> list:
+    permitidas = ["","1","2","3","4","5","6","7",
+                  "8","9","0","a","b","c","d","e","f","g","h","i","j","k", "l",
+                    "m","n" ,"ñ", "o","p","q","r","s","t","u","v","w","x","y","z",
+                      "A", "B", "C" , "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
+                      "N" ,"Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+
+    archivo = open("seis.zip", "rb")
+    bytes = archivo.read()
+    
+    palabras = []
+    palabra = ""
+
+    for b in bytes:
+        char = chr(b)
+        if char in permitidas:
+            palabra+= char
+        elif (char == " ") and (len(palabra) < 5):
+            palabra = ""
+        elif ((char == " ") or (char == "\n" )) and (len(palabra) >= 5):
+            palabras.append(palabra)
+            palabra = ""
+    
+    return palabras 
+
+#print (listarpalabras_de_archivo("seis.zip")) 
+# falta conseguir que agregue la ultima palabra 
+
+#7 
+#def promedio_estudiante (archivo_promedios : str, lu : str) -> float: 
+
+
+
+
+
+         
+#8 
+from queue import LifoQueue as Pila 
+import random 
+
+def generar_numero_al_azar(cantidad:int, desde:int,hasta:int) -> Pila[int]:
+    p = Pila()
+
+    for i in range(cantidad):
+        p.put(random.randint(desde,hasta))
+
+
+    return imprimirPila(p)
+
+def imprimirPila(Pila):
+    res = []
+    while not (Pila.empty()):
+        res.append(Pila.get())
+
+    return res
+
+
+#print( generar_numero_al_azar (69, 1,100) )
+
+#9
+miPila: Pila = Pila()
+miPila.put(5)
+miPila.put(5)
+miPila.put(5)
+miPila.put(5)
+miPila.put(5)
+miPila.put(6) 
+
+def cantidad_de_elementos (p : Pila) -> int: 
+    res : int = 0 
+
+    while not p.empty(): 
+            res += 1
+            p.get()
+    return (res)  
+    
+#print (cantidad_de_elementos (miPila))  
+
+#esto esta mal xq te desarma la pila y hay que dejarla tal cual estaba  
+
+#10
+def bucar_el_maximo(p : Pila[int]) -> int:
+
+    i = 0
+    res = 0
+
+    while not (p.empty()):
+        i = p.get()
+        if i > res:
+            res = i
+
+    return res  
+
+print (bucar_el_maximo (miPila)) 
+
+
+
+
