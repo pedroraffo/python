@@ -200,12 +200,12 @@ def cantidad_de_elementos (p : Pila) -> int:
 
 
     
-print (cantidad_de_elementos (miPila))  
+#print (cantidad_de_elementos (miPila))  
 
-#esto esta mal xq te desarma la pila y hay que dejarla tal cual estaba  
+ 
 
 #10
-def bucar_el_maximo(p : Pila[int]) -> int:
+def buscar_el_maximo(p : Pila[int]) -> int:
 
     i = 0
     res = 0
@@ -304,7 +304,99 @@ def cantidad_de_elementos_cola (c : Cola) -> int:
         c.put(p.get())        
     return (res)   
 
+#print (cantidad_de_elementos_cola (miCola))
 
+#15
+def buscar_el_maximo_cola(c : Cola[int]) -> int:
+    p = Pila()
+    i = 0
+    res = 0
 
+    while not (c.empty()):
+        i = c.get()
+        p.put(i)
+        if i > res:
+            res = i
+    while  not p.empty(): 
+        c.put(p.get())
 
+    return res  
+
+#print (buscar_el_maximo_cola (miCola)) 
+
+# 16
+
+def armarSecuenciaBingo() -> Cola[int]:
+    c = Cola()
+    l: list[int] = list(range(100))
+    for i in range(len(l)):
+        e:int = random.choice(l)
+        l.remove(e)
+        c.put(e)
+    return c
+
+##
+def jugarCarton(carton: list[int], bolillero: Cola[int]) -> int:
+    count: int = 0
+      
+    while not listaVacia(carton) and not bolillero.empty():
+        e: int = bolillero.get()
+        if pertenece_bingo (carton, e) == True:
+            print("entre en",count)
+            carton.remove(e)
+        count += 1
+    
+    return count
+
+def pertenece_bingo (list, numero :int) -> bool: 
+    i : int = 0
+    res = False 
+    while (0 <= i < len (list)): 
+        if (numero == list[i]): 
+            res = True 
+        
+            i += 1 
+    return res 
+
+def listaVacia(l:list) -> bool:
+    if l == []:
+        return True
+    return False
+
+bolillero = armarSecuenciaBingo()
+carton = [1,11,21,31,41,51,61,71,81,91,5,15]
+#print(jugarCarton(carton,bolillero))
+
+#falta hacer que sea de tipo in, ya que modifica tanto al bolillero como al carton. Tienen que quedar tal cual nos los dieron. 
+
+#17 
+fila_pacientes: Cola [int, str, str]= Cola()
+fila_pacientes.put((1, "pedro", "pie"))
+fila_pacientes.put((5, "lucas", "mano"))
+fila_pacientes.put((3, "marto", "tobillo"))
+fila_pacientes.put((6, "santi", "hombro"))
+fila_pacientes.put((2, "tomi", "dedo"))
+fila_pacientes.put((1, "jero", "rodilla"))  
+
+def n_pacientes_urgentes (c : Cola [(int, str, str)]) -> int:
+    p = Pila()
+    res : int = 0 
+    while not c.empty():
+        paciente = c.get()
+        p.put(paciente)
+        if es_urgente (paciente) == True:
+            res += 1 
+    while not p.empty(): 
+        c.put(p.get()) 
+
+    return res     
+
+def es_urgente (list) -> bool: 
+    res : bool = False
+    if (list[0] == 1 or list[0] == 2 or list[0] == 3):
+        res = True 
+
+    return res  
+
+#print (n_pacientes_urgentes (fila_pacientes))
 
