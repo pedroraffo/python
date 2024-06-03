@@ -1,4 +1,5 @@
 import math
+from queue import Queue as Cola 
 
 
 # 1 
@@ -178,22 +179,28 @@ def imprimirPila(Pila):
 
 #9
 miPila: Pila = Pila()
-miPila.put(5)
-miPila.put(5)
-miPila.put(5)
-miPila.put(5)
+miPila.put(1)
+miPila.put(2)
+miPila.put(3)
+miPila.put(4)
 miPila.put(5)
 miPila.put(6) 
 
 def cantidad_de_elementos (p : Pila) -> int: 
     res : int = 0 
+    c = Cola()
 
     while not p.empty(): 
             res += 1
-            p.get()
+            c.put(p.get())
+    while not c.empty(): 
+        p.put(c.get())
+
     return (res)  
+
+
     
-#print (cantidad_de_elementos (miPila))  
+print (cantidad_de_elementos (miPila))  
 
 #esto esta mal xq te desarma la pila y hay que dejarla tal cual estaba  
 
@@ -210,7 +217,93 @@ def bucar_el_maximo(p : Pila[int]) -> int:
 
     return res  
 
-print (bucar_el_maximo (miPila)) 
+#print (bucar_el_maximo (miPila)) 
+
+#11
+
+def esta_bien_balanceada (s : str) -> bool: 
+    p = Pila 
+    for letra in s: 
+        if letra == '(': 
+            p.put (letra)
+        elif letra == ')': 
+            if (p.empty()) or (p.get() != '('):
+                return False
+    return p.empty()          
+
+#print(esta_bien_balanceada("(1+1)/2"))
+#print(esta_bien_balanceada("1+1)/2"))
+#print(esta_bien_balanceada("(1+1/2")) 
+
+
+#12 
+
+
+def evaluar_expresion (s : str) -> float:
+    p = Pila()
+    for letra in s: 
+            if letra != '+' and letra != '-' and letra != '*' and letra != '/' and letra != ' ': 
+                p.put(float(letra))
+            elif letra != ' ': 
+                scnd = p.get() 
+                frst = p.get() 
+                if letra == '+': 
+                    p.put(frst + scnd) 
+                elif letra == '-':
+                    p.put(frst - scnd)
+                elif letra == '*':
+                    p.put(frst * scnd) 
+                elif letra == '/':
+                    p.put(frst / scnd) 
+
+    return p.get() 
+    
+#print (evaluar_expresion ("3 4 + 5 * 2 -")) 
+                    
+
+#
+
+
+
+#13
+
+def generar_numero_al_azar_cola (cantidad:int, desde:int,hasta:int) -> Cola[int]:
+    c = Cola()
+    for i in range(cantidad):
+        c.put(random.randint(desde,hasta))
+
+
+    return imprimirCola(c)
+
+def imprimirCola(Cola):
+    res = []
+    while not (Cola.empty()):
+        res.insert(0, Cola.get())
+
+    return res  
+
+#print( generar_numero_al_azar_cola (69, 1,100) )
+
+# 14 
+miCola: Cola = Cola()
+miCola.put(1)
+miCola.put(2)
+miCola.put(3)
+miCola.put(4)
+miCola.put(5)
+miCola.put(6) 
+
+def cantidad_de_elementos_cola (c : Cola) -> int: 
+    res : int = 0 
+    p = Pila()
+
+    while not c.empty(): 
+            res += 1
+            p.put(c.get()) 
+    while not p.empty(): 
+        c.put(p.get())        
+    return (res)   
+
 
 
 
