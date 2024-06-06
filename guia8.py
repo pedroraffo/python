@@ -379,7 +379,7 @@ fila_pacientes.put((2, "tomi", "dedo"))
 fila_pacientes.put((1, "jero", "rodilla"))  
 
 def n_pacientes_urgentes (c : Cola [(int, str, str)]) -> int:
-    p = Pila()
+    p = Cola()
     res : int = 0 
     while not c.empty():
         paciente = c.get()
@@ -399,4 +399,214 @@ def es_urgente (list) -> bool:
     return res  
 
 #print (n_pacientes_urgentes (fila_pacientes))
+
+#18
+
+fila_banco: Cola [str, int, bool, bool] = Cola()
+fila_banco.put(("vilma", 21, False, True ))
+fila_banco.put(("embarazada", 30, False, True))
+fila_banco.put(("piba", 40, False, False))
+fila_banco.put(("pibe", 42, False, False))
+fila_banco.put(("viejo", 12, True, False))
+
+def nivel_de_prioridad (list) -> int: 
+    if list[3] == True:
+        res = 1 
+    elif list [2] == True:
+        res = 2 
+    else: 
+        res = 3 
+    return res 
+
+def atencion_a_clientes (c : Cola[(str, int, bool, bool)]) -> Cola[(str, int, bool, bool)]:
+    f = Cola()
+    p = Cola()
+    s = Cola()
+    t = Cola()
+    n = Cola()
+    while not c.empty():
+        cliente = c.get()
+        n.put(cliente)
+        if nivel_de_prioridad (cliente) == 1: 
+                p.put(cliente) 
+        elif nivel_de_prioridad (cliente) == 2:
+                s.put(cliente) 
+        else: 
+                t.put(cliente) 
+    while not p.empty():
+        f.put(p.get())
+    while not s.empty():
+        f.put(s.get())
+    while not t.empty():
+        f.put(t.get())
+    while not n.empty():
+        c.put(n.get())
+    
+    return  f 
+
+
+#print (imprimirCola (atencion_a_clientes (fila_banco)))
+
+###
+
+#19 
+""" def im_not_split(content:str) -> list[str]:
+    res = []
+    i = 0
+    palabra = ""
+
+
+    while i < len(content):
+        if content[i] == " " or content[i] == "\n":
+            if palabra != "":
+                res.append(palabra)
+                palabra = ""
+
+        else: 
+            palabra+= content[i]
+
+        i+=1
+    if i == len(content):
+        res.append(palabra)
+    return res """
+
+def agrupar_por_longitud (archivo : str) -> dict:
+    diccionario = {}
+    archivo = open (archivo,"r") 
+    contenido = archivo.read()
+    palabras:list[str] = contenido.split()
+
+    for palabra in palabras:
+        if len(palabra) in diccionario:
+            diccionario[len(palabra)] += 1
+        else:
+            diccionario[len(palabra)] = 1
+
+    archivo.close()
+
+    return diccionario
+
+#print(agrupar_por_longitud("ocho.txt")) 
+
+## para el 20 hay que hacer el 7 y no lo hice. 
+
+#21 
+
+ 
+def diccio_de_palabras (archivo : str) -> dict:
+    diccionario = {}
+    archivo = open (archivo,"r") 
+    contenido = archivo.read()
+    palabras:list[str] = contenido.split()
+
+    for palabra in palabras: 
+        if palabra in diccionario: 
+             diccionario[palabra] += 1
+        else: 
+            diccionario[palabra] = 1
+        
+    archivo.close()
+
+    return diccionario 
+
+def  palabras_mas_frecuentes (archivo : str) -> str: 
+    diccio = diccio_de_palabras (archivo) 
+    cantidad = diccio.keys() 
+    max : int = 0
+    res : str = 'no hay palabras en el archivo'
+    for clave in cantidad:
+        if diccio [clave] > max:
+            max = diccio [clave]
+            res = clave  
+    return res 
+
+#print (palabras_mas_frecuentes ("ocho.txt"))
+
+#22
+
+historiales = {} 
+
+def visitar_sitio (historiales : dict[str, Pila[str]], usuario : str, sitio : str): 
+        if usuario not in historiales:
+            historiales[usuario] =  Pila()
+        
+        historiales[usuario].put(sitio) 
+
+def navegar_atras(historiales: dict[str, Pila[str]], usuario:str):
+
+    if usuario in historiales:
+        historiales[usuario].get() 
+ 
+        
+
+def imprimir_historial(historiales):
+    items = historiales.items()
+
+    for usuario, p in items:
+        print(f"Historial de {usuario}: ")
+        lista = []
+
+        while not p.empty():
+            lista.append(p.get())
+
+        for sitio in lista:
+            print(sitio)
+
+        pilaProvisional = Pila()
+        while lista:
+            pilaProvisional.put(lista.pop())
+        while not pilaProvisional.empty():
+            p.put(pilaProvisional.get())
+
+        print()
+
+
+#visitar_sitio (historiales, "tomi", "plm")
+#visitar_sitio (historiales, "tomi", "promiedos") 
+#print (imprimir_historial(historiales))
+
+##23
+
+inventario = {}
+
+def agregar_producto (inventario : dict, nombre : str, precio : int, cantidad : int): 
+    masinfo = {}
+    inventario[nombre] = masinfo
+    masinfo["precio"]= precio
+    masinfo ["cantidad"]= cantidad
+
+agregar_producto (inventario, "airforce", 100, 9) 
+agregar_producto (inventario, "vans", 99, 20) 
+print (list(inventario.items()))
+
+def actualizar_stock (inventario : dict, nombre : str, precio : int, cantidad : int):
+    prod = inventario[nombre]
+    if nombre in inventario:
+        prod["cantidad"] = cantidad 
+        
+#actualizar_stock (inventario, "airforce", 100, 12) 
+#print(list(inventario.items()))
+
+def actualizar_precio (inventario : dict, nombre : str, precio : int, cantidad : int):
+    nuevo = inventario[nombre]
+    if nombre in inventario:
+        nuevo["precio"] = precio 
+
+
+#actualizar_precio (inventario, "airforce", 115, 12) 
+#print(list(inventario.items()))
+
+def calcular_valor_inventario (inventario : dict) -> float:
+    res : float = 0.0
+    excel = inventario.keys() 
+    for k in excel:
+        l = list(inventario[k].values())
+        i : int = 0
+        res += l[0] * l[1] 
+        while i+2 < len(l):
+            res += l[i] * l[i+1] 
+    return res 
+    
+print (calcular_valor_inventario(inventario)) 
+    
 
